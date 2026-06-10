@@ -135,11 +135,11 @@ for _, row in IG_df.iterrows():
         weight=2,
         fill=True,
         fill_color=colour,
-        fill_opacity=0.8,
+        fill_opacity=1,
         
         popup=folium.Popup(popup, max_width=250)
     ).add_to(m)
 
 colormap.add_to(m)
 
-m.save("irish_trig_points.html")
+m.save("bin/index.html")
