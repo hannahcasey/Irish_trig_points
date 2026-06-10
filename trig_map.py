@@ -51,8 +51,8 @@ def ig_to_latlon(grid_ref):
 
     east_corr, north_corr = GRID_LOOKUP[letter]
 
-    easting = '%s%s' % (east_corr, east)
-    northing = '%s%s' % (north_corr, north)
+    easting = int(str(east_corr) + east)
+    northing = int(str(north_corr) + north)
 
     lon, lat = transformer.transform(easting, northing)
 
@@ -96,25 +96,7 @@ colormap = cm.LinearColormap(
     caption="Elevation (m)"
 )
 
-
-fm = folium.Map(
-    location=[
-        IG_df["latitude"].mean(),
-        IG_df["longitude"].mean()
-    ],
-    zoom_start=7
-)
-
-min_elev = IG_df["Height (m)"].min()
-max_elev = IG_df["Height (m)"].max()
-
-colormap = cm.LinearColormap(
-    colors=["#2c7bb6", "#ffffbf", "#fdae61", "#d7191c"],
-    vmin=min_elev,
-    vmax=max_elev,
-    caption="Elevation (m)"
-)
-
+# Add trig point information
 for _, row in IG_df.iterrows():
 
     elev = row["Height (m)"]
@@ -142,4 +124,5 @@ for _, row in IG_df.iterrows():
 
 colormap.add_to(m)
 
+# Save map
 m.save("bin/index.html")
